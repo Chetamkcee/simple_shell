@@ -15,12 +15,14 @@ char *string_concatenate(char *dest, char *src)
     {
         dest_index++;
     }
+
     while (src[src_index] != '\0')
     {
         dest[dest_index] = src[src_index];
         dest_index++;
         src_index++;
     }
+
     dest[dest_index] = '\0';
     return dest;
 }
@@ -42,6 +44,7 @@ int string_compare(char *s1, char *s2)
             return ((int)s1[index] - s2[index]);
         }
     }
+
     return 0;
 }
 
@@ -82,6 +85,7 @@ size_t string_compare_n(char *s1, char *s2, size_t n)
             return diff;
         }
     }
+
     return 0;
 }
 
@@ -100,7 +104,9 @@ char *string_copy(char *dest, char *src)
         *(dest + i) = *(src + i);
         ++i;
     }
-    *(dest + i) = *(src + i);
+
+    *(dest + i) = '\0';
 
     return dest;
 }
+
