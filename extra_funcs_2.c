@@ -1,7 +1,32 @@
 #include "shell.h"
 #include <stddef.h>
 
+/**
+* myStrspn - Gets the length of a prefix substring.
+* @str1: String to be scanned.
+* @str2: String containing the characters to match.
+* Return: The number of characters in the initial segment of str1 which
+* consist only of characters from str2.
+*/
+size_t myStrspn(const char *str1, const char *str2){
+  size_t i,j;
+  i=0;
 
+  while(*(str1+i)){
+    j=0;
+    while(*(str2+j)){
+      if(*(str1+i) == *(str2+j)){
+        break; //Found a match.
+      }
+      j++;
+    }
+    if(!*(str2+j)){
+      return i; //No match found.
+    }
+    i++;
+  }
+  return i;
+}
 /**
  * _strchr - locates the ﬁrst occurrence of c (converted to a char) in the
  * string pointed to by s. The terminating null character is considered to be
@@ -52,7 +77,7 @@ char *_strtok(char *str, const char *delim) {
         return NULL;
     }
 
-    str = p + strspn(p, delim);
+    str = p + myStrspn(p, delim);
     p = str + _strcspn(str, delim);
     
     if (p == str) {
