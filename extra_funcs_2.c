@@ -42,21 +42,10 @@ size_t myStrspn(const char *str1, const char *str2)
  **/
 char *_strchr(const char *s, int c)
 {
-	int dest_index = 0;
-	int src_index = 0;
-
-	while (dest[dest_index] != '\0')
-	{
-		dest_index++;
-	}
-	while (src[src_index] != '\0')
-	{
-		dest[dest_index] = src[src_index];
-		dest_index++;
-		src_index++;
-	}
-	dest[dest_index] = '\0';
-	return (dest);
+	while (*s != (char)c)
+		if (!*s++)
+			return (0);
+	return ((char *)s);
 }
 
 /**
@@ -81,9 +70,10 @@ size_t _strcspn(const char *s1, const char *s2)
 }
 
 /**
- * string_length - Calculates the length of a string.
- * @s: Pointer to the string
- * Return: Length of the string
+ * _strtok - Tokenizes a string based on the given delimiter.
+ * @str The string to tokenize
+ * @delim The delimiter string
+ * return The first/next token if possible, NULL otherwise
  */
 char *_strtok(char *str, const char *delim)
 {
@@ -121,12 +111,11 @@ char *_strtok(char *str, const char *delim)
 }
 
 /**
- * string_compare_n - Compares the first n characters of two strings.
- * @s1: First string
- * @s2: Second string
- * @n: Number of characters to compare
- * Return: Difference between the strings
+ * get_tokens - Get tokens from a string
+ * @command_line: User command
+ * Return: Pointer to tokens
  */
+
 char **get_tokens(char *command_line)
 {
 	if (command_line == NULL)
@@ -145,6 +134,7 @@ char **get_tokens(char *command_line)
 		token = _strtok(NULL, " \n\t\r");
 	}
 
+	// Allocate memory for an array of pointers
 	char **user_command = malloc((token_count + 1) * sizeof(char *));
 	if (user_command == NULL)
 	{
@@ -152,14 +142,16 @@ char **get_tokens(char *command_line)
 		return NULL;
 	}
 
+	// Reset command_line and token
 	token = _strtok(copy, " \n\t\r");
 
 	size_t i = 0;
 	while (token != NULL && i < token_count)
 	{
-		user_command[i] = strdup(token);
+		user_command[i] = strdup(token); // Allocate memory for each token
 		if (user_command[i] == NULL)
 		{
+			// Handle memory allocation failure
 			for (size_t j = 0; j < i; j++)
 			{
 				free(user_command[j]);
@@ -173,6 +165,6 @@ char **get_tokens(char *command_line)
 	}
 	user_command[i] = NULL;
 
-	free(copy);
+	free(copy); // Free the copied command_line string
 	return user_command;
 }
