@@ -51,3 +51,37 @@ char *_strtok(char *str, const char *delim) {
 
     return str;
 }
+
+/**
+ * get_tokens - Get tokens from a string
+ * @command_line: User command
+ * Return: Pointer to tokens
+ */
+char **get_tokens(char *command_line) {
+    char **user_command = NULL;
+    char *token = NULL;
+    size_t i = 0;
+    int size = 0;
+
+    if (command_line == NULL)
+        return NULL;
+
+    for (i = 0; command_line[i]; i++) {
+        if (command_line[i] == ' ')
+            size++;
+    }
+    if ((size + 1) == string_length(command_line))
+        return NULL;
+
+    user_command = malloc(size + 2, sizeof(char *));
+    if (user_command == NULL)
+        return NULL;
+
+    token = _strtok(command_line, " \n\t\r");
+    for (i = 0; token != NULL; i++) {
+        user_command[i] = token;
+        token = _strtok(NULL, " \n\t\r");
+    }
+    user_command[i] = NULL;
+    return user_command;
+}

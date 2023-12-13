@@ -25,13 +25,13 @@ char *read_command(void)
 }
 
 /**
- * handle_exit_command - Function to handle the exit command in the shell
+ * exit_command - Function to handle the exit command in the shell
  * @arguments Command arguments
  * @input String from standard input
  * @exit_code Exit code value
  * return None
  */
-void handle_exit_command(char **arguments, char *input, int exit_code) {
+void exit_command(char **arguments, char *input, int exit_code) {
     int status = 0;
 
     if (!arguments[1]) {
