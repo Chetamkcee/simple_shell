@@ -23,7 +23,7 @@ char *string_concatenate(char *dest, char *src)
 		src_index++;
 	}
 	dest[dest_index] = '\0';
-	return dest;
+	return (dest);
 }
 
 /**
@@ -43,7 +43,7 @@ int string_compare(char *s1, char *s2)
 			return ((int)s1[index] - s2[index]);
 		}
 	}
-	return 0;
+	return (0);
 }
 
 /**
@@ -60,7 +60,7 @@ int string_length(char *s)
 		length++;
 	}
 
-	return length;
+	return (length);
 }
 
 /**
@@ -80,10 +80,10 @@ size_t string_compare_n(char *s1, char *s2, size_t n)
 
 		if (diff != 0)
 		{
-			return diff;
+			return (diff);
 		}
 	}
-	return 0;
+	return (0);
 }
 
 /**
@@ -103,6 +103,6 @@ char *string_copy(char *dest, char *src)
 	}
 	*(dest + i) = *(src + i);
 
-	return dest;
+	return (dest);
 }
 
