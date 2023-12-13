@@ -20,9 +20,10 @@ int main(int argc, char **argv, char **env) {
                 free(command);
                 continue;
             }
-            if ((!string_compare(parsed_command[0], "exit")) && parsed_command[1] == NULL)
+            printf("Reached point of line 23 on main\n");
+            if ((!strcmp(parsed_command[0], "exit")) && parsed_command[1] == NULL)
                 exit_command(parsed_command, command, exit_code);
-            if (!string_compare(parsed_command[0], "env"))
+            if (!strcmp(parsed_command[0], "env"))
                 display_environment(env);
             else {
                 value = separate_path_values(&parsed_command[0], env);
