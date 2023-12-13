@@ -29,4 +29,10 @@ int string_compare(char *s1, char *s2);
 char *string_concatenate(char *dest, char *src);
 int string_compare(char *s1, char *s2);
 size_t string_compare_n(char *s1, char *s2, size_t n);
+int execute_command(char **parsed_command,
+                    char *command, char **env,
+                    char **argv, int path_count, int *value);
+void handle_end_of_input(int exit_code);
+int separate_path_values(char **arg, char **env);
+
 #endif

@@ -8,23 +8,20 @@
  */
 char *string_concatenate(char *dest, char *src)
 {
-    int dest_index = 0;
-    int src_index = 0;
+	int dest_index = 0;
+	int src_index = 0;
 
-    while (dest[dest_index] != '\0')
-    {
-        dest_index++;
-    }
+	while (dest[dest_index] != '\0')
+		dest_index++;
 
-    while (src[src_index] != '\0')
-    {
-        dest[dest_index] = src[src_index];
-        dest_index++;
-        src_index++;
-    }
-
-    dest[dest_index] = '\0';
-    return dest;
+	while (src[src_index] != '\0')
+	{
+		dest[dest_index] = src[src_index];
+		dest_index++;
+		src_index++;
+	}
+	dest[dest_index] = '\0';
+	return (dest);
 }
 
 /**
@@ -35,17 +32,16 @@ char *string_concatenate(char *dest, char *src)
  */
 int string_compare(char *s1, char *s2)
 {
-    int index;
+	int index;
 
-    for (index = 0; s1[index] != '\0' && s2[index] != '\0'; index++)
-    {
-        if (s1[index] != s2[index])
-        {
-            return ((int)s1[index] - s2[index]);
-        }
-    }
-
-    return 0;
+	for (index = 0; s1[index] != '\0' && s2[index] != '\0'; index++)
+	{
+		if (s1[index] != s2[index])
+		{
+			return ((int)s1[index] - s2[index]);
+		}
+	}
+	return (0);
 }
 
 /**
@@ -55,14 +51,12 @@ int string_compare(char *s1, char *s2)
  */
 int string_length(char *s)
 {
-    int length = 0;
+	int length = 0;
 
-    while (*(s + length) != '\0')
-    {
-        length++;
-    }
+	while (*(s + length) != '\0')
+		length++;
 
-    return length;
+	return (length);
 }
 
 /**
@@ -74,19 +68,18 @@ int string_length(char *s)
  */
 size_t string_compare_n(char *s1, char *s2, size_t n)
 {
-    size_t index, diff;
+	size_t index, diff;
 
-    for (index = 0; s1[index] != '\0' && index < n; index++)
-    {
-        diff = s1[index] - s2[index];
+	for (index = 0; s1[index] != '\0' && index < n; index++)
+	{
+		diff = s1[index] - s2[index];
 
-        if (diff != 0)
-        {
-            return diff;
-        }
-    }
-
-    return 0;
+		if (diff != 0)
+		{
+			return (diff);
+		}
+	}
+	return (0);
 }
 
 /**
@@ -97,16 +90,13 @@ size_t string_compare_n(char *s1, char *s2, size_t n)
  */
 char *string_copy(char *dest, char *src)
 {
-    int i = 0;
+	int i = 0;
 
-    while (*(src + i) != '\0')
-    {
-        *(dest + i) = *(src + i);
-        ++i;
-    }
-
-    *(dest + i) = '\0';
-
-    return dest;
+	while (*(src + i) != '\0')
+	{
+		*(dest + i) = *(src + i);
+		++i;
+	}
+	*(dest + i) = *(src + i);
+	return (dest);
 }
-

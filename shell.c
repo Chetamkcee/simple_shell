@@ -1,61 +1,85 @@
-nclude "shell.h"
+#include "shell.h"
 
 /**
- * read_command - function that returns a line passed to the interpreter
+ * main - Main function handling arguments and executing shell commands
+ * @argc: Number of arguments
+ * @argv: Array of arguments
+ * @env: Environment variables
+ * Return: Exit code
+ */
+int main(int argc, char **argv, char **env)
+{
+	char *command = NULL, **parsed_command = NULL;
+	int path_count = 0, exit_code = 0, value = 0;
+
+	(void)argc;
+
+	while (1)
+	{
+		command = read_command();
+		if (command)
+		{
+			path_count++;
+			parsed_command = get_tokens(command);
+			if (!parsed_command)
+			{
+				free(command);
+				continue;
+			}
+			exit_code = execute_command(
+				parsed_command, command,
+				env, argv, path_count, &value);
+			free(parsed_command);
+		}
+		else
+		{
+			handle_end_of_input(exit_code);
+		}
+		free(command);
+	}
+	return (exit_code);
+}
+
+/**
+ * execute_command - Executes a command
+ * @parsed_command: Parsed command
+ * @command: Command
+ * @env: Environment variables
+ * @argv: Array of arguments
+ * @path_count: Path count
+ * @value: Value
  *
- * Return: a pointer to the buffer
+ * Return: Exit code
  */
-char *read_command(void)
+int execute_command(char **parsed_command,
+					char *command, char **env,
+					char **argv, int path_count, int *value)
 {
-	size_t n = 0;
-	char *lineptr = NULL;
-	ssize_t read_result;
+	int exit_code = 0;
 
+	if ((!string_compare(parsed_command[0], "exit")) &&
+		parsed_command[1] == NULL)
+		exit_command(parsed_command, command, exit_code);
+	if (!string_compare(parsed_command[0], "env"))
+		display_environment(env);
+	else
+	{
+		*value = separate_path_values(&parsed_command[0], env);
+		exit_code = execute_fork(parsed_command, argv,
+								 env, command, path_count, *value);
+	}
+	return (exit_code);
+}
+
+/**
+ * handle_end_of_input - Handles end of input
+ * @exit_code: Exit code
+ *
+ * Return: void
+ */
+void handle_end_of_input(int exit_code)
+{
 	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "$ ", 2);
-
-	read_result = getline(&lineptr, &n, stdin);
-	if (read_result <= 0)
-	{
-		free(lineptr);
-		return (NULL);
-	}
-	return (lineptr);
+		write(STDOUT_FILENO, "\n", 1);
+	exit(exit_code);
 }
-
-/**
- * exit_command - Function to handle the exit command in the shell
- * @arguments: Command arguments
- * @input: String from standard input
- * @exit_code: Exit code value
- * Return: None
- */
-void exit_command(char **arguments, char *input, int exit_code)
-{
-	int status = 0;
-
-	if (!arguments[1])
-	{
-		free(input);
-		free(arguments);
-		exit(exit_code);
-	}
-
-	status = atoi(arguments[1]);
-
-	free(input);
-	free(arguments);
-	exit(status);
-}
-
-/**
- * display_environment - Function to retrieve and display environment variables
- * @environment: Environment variables
- * Return: None
- */
-void display_environment(char **environment)
-{
-	size_t index = 0;
-	/* Rest of the function implementation goes here */
-}
-

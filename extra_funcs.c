@@ -64,4 +64,3 @@ void display_environment(char **environment)
 		index++;
 	}
 }
-
