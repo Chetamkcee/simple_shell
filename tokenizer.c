@@ -47,17 +47,21 @@ size_t count_tokens(char *copy)
  */
 char **get_tokens(char *command_line)
 {
+	char *copy, **user_command, *token;
+
+	size_t token_count = 0, j = 0, i = 0;
+
 	if (command_line == NULL)
 		return (NULL);
 
-	char *copy = strdup(command_line);
+	copy = strdup(command_line);
 
 	if (copy == NULL)
 		return (NULL);
 
-	size_t token_count = count_tokens(copy);
+	token_count = count_tokens(copy);
 
-	char **user_command = allocate_tokens(token_count, copy);
+	user_command = allocate_tokens(token_count, copy);
 
 	if (user_command == NULL)
 	{
@@ -65,16 +69,14 @@ char **get_tokens(char *command_line)
 		return (NULL);
 	}
 
-	char *token = _strtok(copy, " \n\t\r");
-
-	size_t i = 0;
+	token = _strtok(copy, " \n\t\r");
 
 	while (token != NULL && i < token_count)
 	{
 		user_command[i] = strdup(token);
 		if (user_command[i] == NULL)
 		{
-			for (size_t j = 0; j < i; j++)
+			for (j = 0; j < i; j++)
 				free(user_command[j]);
 			free(user_command);
 			free(copy);
