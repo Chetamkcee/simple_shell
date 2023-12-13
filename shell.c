@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * @brief Main function handling arguments and executing shell commands
- * @param argc Number of arguments
- * @param argv Array of arguments
- * @param env Environment variables
- * @return Exit code
+ * main - Main function handling arguments and executing shell commands
+ * @argc Number of arguments
+ * @argv Array of arguments
+ * @env Environment variables
+ * return Exit code
  */
 int main(int argc, char **argv, char **env) {
     char *command = NULL, **parsed_command = NULL;
@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env) {
         command = read_command(); // A function to read the command
         if (command) {
             path_count++;
-            parsed_command = tokenize_command(command); // A function to tokenize the command
+            parsed_command = _strtok(command); // A function to tokenize the command
             if (!parsed_command) {
                 free(command);
                 continue;

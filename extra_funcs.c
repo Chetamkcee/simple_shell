@@ -1,12 +1,12 @@
 #include shell.h
 
 /** 
-* getline - function that returns the a line passed to the interpreter
+ * getline - function that returns the a line passed to the interpreter
  *
  * return: a pointer to the buffer
  */
 
-char * getline(void)
+char *read_command(void)
 {
         size_t n = 0;
         char *lineptr = NULL;
@@ -25,11 +25,11 @@ char * getline(void)
 }
 
 /**
- * @brief Function to handle the exit command in the shell
- * @param arguments Command arguments
- * @param input String from standard input
- * @param exit_code Exit code value
- * @return None
+ * handle_exit_command - Function to handle the exit command in the shell
+ * @arguments Command arguments
+ * @input String from standard input
+ * @exit_code Exit code value
+ * return None
  */
 void handle_exit_command(char **arguments, char *input, int exit_code) {
     int status = 0;
@@ -47,8 +47,8 @@ void handle_exit_command(char **arguments, char *input, int exit_code) {
 }
 
 /**
- * @brief Function to retrieve and display environment variables
- * @param environment Environment variables
+ * display_environment - Function to retrieve and display environment variables
+ * @environment Environment variables
  * @return None
  */
 void display_environment(char **environment) {
@@ -60,4 +60,3 @@ void display_environment(char **environment) {
         index++;
     }
 }
-
