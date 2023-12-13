@@ -34,7 +34,7 @@ char *_strtok(char *str, const char *delim) {
         return NULL;
     }
 
-    str = p + _strspn(p, delim);
+    str = p + _strcspn(p, delim);
     p = str + _strcspn(str, delim);
     
     if (p == str) {
@@ -73,7 +73,7 @@ char **get_tokens(char *command_line) {
     if ((size + 1) == string_length(command_line))
         return NULL;
 
-    user_command = malloc(size + 2, sizeof(char *));
+    user_command = malloc((size + 2) * sizeof(char *));
     if (user_command == NULL)
         return NULL;
 

@@ -26,4 +26,5 @@ char *string_copy(char *dest, char *src);
 int separate_path_values(char **arg, char **env);
 char *get_path_value(char **env);
 int execute_fork(char **arg, char **av, char **env, char *lineptr, int process_id, int checker);
+char **get_tokens(char *command_line);
 #endif

@@ -57,7 +57,7 @@ char *get_path_value(char **env) {
     size_t index = 0, var = 0, count = 5;
     char *path = NULL;
 
-    for (index = 0; _strncmp(env[index], "PATH=", 5); index++)
+    for (index = 0; string_compare(env[index], "PATH=", 5); index++)
         ;
 
     if (env[index] == NULL)
