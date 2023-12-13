@@ -6,7 +6,8 @@
  * @env: Environment variables.
  * Return: Integer indicating success or failure.
  */
-int separate_path_values(char **arg, char **env) {
+int separate_path_values(char **arg, char **env)
+{
     char *token = NULL, *path_relative = NULL, *path_absolute = NULL;
     size_t path_length, command_length;
     struct stat stat_info;
@@ -21,11 +22,13 @@ int separate_path_values(char **arg, char **env) {
     token = _strtok(path_relative, ":");
     command_length = string_length(*arg);
 
-    while (token) {
+    while (token)
+    {
         path_length = string_length(token);
         path_absolute = (char *)malloc(sizeof(char) * (path_length + command_length + 2));
 
-        if (!path_absolute) {
+        if (!path_absolute)
+        {
             free(path_relative);
             return (-1);
         }
@@ -34,7 +37,8 @@ int separate_path_values(char **arg, char **env) {
         string_concatenate(path_absolute, "/");
         string_concatenate(path_absolute, *arg);
 
-        if (stat(path_absolute, &stat_info) == 0) {
+        if (stat(path_absolute, &stat_info) == 0)
+        {
             *arg = path_absolute;
             free(path_relative);
             return (0);
@@ -53,7 +57,8 @@ int separate_path_values(char **arg, char **env) {
  * @env: Local environment
  * Return: Value of the PATH variable
  */
-char *get_path_value(char **env) {
+char *get_path_value(char **env)
+{
     size_t index = 0, var = 0, count = 5;
     char *path = NULL;
 
@@ -88,15 +93,18 @@ char *get_path_value(char **env) {
  * @checker: Checker flag for additional test
  * Return: 0 on success
  */
-int execute_fork(char **arg, char **av, char **env, char *lineptr, int process_id, int checker) {
+int execute_fork(char **arg, char **av, char **env, char *lineptr, int process_id, int checker)
+{
     pid_t child;
     int status = 0;
     char *error_format = "%s: %d: %s: not found\n";
 
     child = fork();
 
-    if (child == 0) {
-        if (execve(arg[0], arg, env) == -1) {
+    if (child == 0)
+    {
+        if (execve(arg[0], arg, env) == -1)
+        {
             fprintf(stderr, error_format, av[0], process_id, arg[0]);
             if (!checker)
                 free(arg[0]);
@@ -104,7 +112,9 @@ int execute_fork(char **arg, char **av, char **env, char *lineptr, int process_i
             free(lineptr);
             exit(errno);
         }
-    } else {
+    }
+    else
+    {
         wait(&status);
 
         if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
