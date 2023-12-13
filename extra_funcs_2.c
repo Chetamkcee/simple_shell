@@ -105,4 +105,3 @@ char *string_copy(char *dest, char *src)
 
 	return (dest);
 }
-

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stddef.h>
 
 extern char **environ;
 
@@ -24,4 +25,8 @@ int separate_path_values(char **arg, char **env);
 char *get_path_value(char **env);
 int execute_fork(char **arg, char **av, char **env, char *lineptr, int process_id, int checker);
 char **get_tokens(char *command_line);
+int string_compare(char *s1, char *s2);
+char *string_concatenate(char *dest, char *src);
+int string_compare(char *s1, char *s2);
+size_t string_compare_n(char *s1, char *s2, size_t n);
 #endif
