@@ -1,22 +1,21 @@
-#include shell.h
+#include "shell.h"
 
 /** 
  * getline - function that returns the a line passed to the interpreter
  *
- * return: a pointer to the buffer
+ * Return: a pointer to the buffer
  */
-
 char *read_command(void)
 {
         size_t n = 0;
         char *lineptr = NULL;
-        char *line = NULL;
+        ssize_t read_result;
 
-        if (isatty(stdin))
+        if (isatty(STDIN_FILENO))
                 write(STDOUT_FILENO, "$ ", 2);
 
-        line = getline(&lineptr, &n, stdin);
-        if (!line)
+        read_result = getline(&lineptr, &n, stdin);
+        if (!read_result)
         {
                 free(lineptr);
                 return(NULL);
@@ -29,7 +28,7 @@ char *read_command(void)
  * @arguments Command arguments
  * @input String from standard input
  * @exit_code Exit code value
- * return None
+ * Return: None
  */
 void exit_command(char **arguments, char *input, int exit_code) {
     int status = 0;
@@ -39,7 +38,7 @@ void exit_command(char **arguments, char *input, int exit_code) {
         free(arguments);
         exit(exit_code);
     }
-    status = convert_to_integer(arguments[1]);
+    status = atoi(arguments[1]);
 
     free(input);
     free(arguments);
@@ -49,14 +48,14 @@ void exit_command(char **arguments, char *input, int exit_code) {
 /**
  * display_environment - Function to retrieve and display environment variables
  * @environment Environment variables
- * @return None
+ * Return: None
  */
 void display_environment(char **environment) {
     size_t index = 0;
 
     while (environment[index]) {
-        write_output(STDOUT_FILENO, environment[index], string_length(environment[index]));
-        write_output(STDOUT_FILENO, "\n", 1);
+        write(STDOUT_FILENO, environment[index], string_length(environment[index]));
+        write(STDOUT_FILENO, "\n", 1);
         index++;
     }
 }

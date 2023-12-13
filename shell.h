@@ -1,6 +1,6 @@
-#ifndef SHELL_H
-#define SHELL_H
-#def _GNU_SOURCE
+#ifndef _SHELL_H_
+#define _SHELL_H_
+#define _GNU_SOURCE
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -26,3 +26,4 @@ char *string_copy(char *dest, char *src);
 int separate_path_values(char **arg, char **env);
 char *get_path_value(char **env);
 int execute_fork(char **arg, char **av, char **env, char *lineptr, int process_id, int checker);
+#endif
