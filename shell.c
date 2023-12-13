@@ -20,7 +20,6 @@ int main(int argc, char **argv, char **env) {
                 free(command);
                 continue;
             }
-            printf("Reached point of line 23 on main\n");
             if ((!strcmp(parsed_command[0], "exit")) && parsed_command[1] == NULL)
                 exit_command(parsed_command, command, exit_code);
             if (!strcmp(parsed_command[0], "env"))
